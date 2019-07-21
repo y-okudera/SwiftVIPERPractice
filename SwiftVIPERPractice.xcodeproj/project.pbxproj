@@ -186,12 +186,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6447C5CE22DA24F6004C6DF1 /* Models */ = {
+		6447C5CE22DA24F6004C6DF1 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				64DB532E22D9FA1000D8AB0D /* Utilities */,
 				6447C5CF22DA24FF004C6DF1 /* WebAPI */,
 			);
-			path = Models;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		6447C5CF22DA24FF004C6DF1 /* WebAPI */ = {
@@ -420,8 +421,7 @@
 			children = (
 				64DB530B22D9E43E00D8AB0D /* Info.plist */,
 				64DB530A22D9E43E00D8AB0D /* SwiftVIPERPracticeDataStore.h */,
-				6447C5CE22DA24F6004C6DF1 /* Models */,
-				64DB532E22D9FA1000D8AB0D /* Utilities */,
+				6447C5CE22DA24F6004C6DF1 /* Modules */,
 			);
 			path = SwiftVIPERPracticeDataStore;
 			sourceTree = "<group>";
