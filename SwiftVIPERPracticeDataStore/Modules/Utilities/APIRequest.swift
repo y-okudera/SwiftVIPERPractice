@@ -19,13 +19,17 @@ public protocol APIRequest {
     var method: HTTPMethod { get }
     var path: String { get }
     var parameters: [String: Any] { get }
+    var encodingType: EncodingType { get }
     var httpHeaderFields: [String: String] { get }
+    var timeoutInterval: TimeInterval { get }
+    var cachePolicy: URLRequest.CachePolicy { get }
+    var allowsCellularAccess: Bool { get }
     
     func decode(data: Data) -> Response?
     func decode(errorResponseData: Data) -> ErrorResponse?
     
     /// URLRequestを生成する
-    func makeURLRequest(needURLEncoding: Bool) -> URLRequest?
+    func makeURLRequest() -> URLRequest?
 }
 
 // MARK: - Default implementation
@@ -46,12 +50,28 @@ extension APIRequest {
         return "/path"
     }
     
-    public var parameters: [String: String] {
+    public var parameters: [String: Any] {
         return [:]
+    }
+    
+    public var encodingType: EncodingType {
+        return .urlEncoding
     }
     
     public var httpHeaderFields: [String: String] {
         return [:]
+    }
+    
+    public var timeoutInterval: TimeInterval {
+        return 30
+    }
+    
+    public var cachePolicy: URLRequest.CachePolicy {
+        return .useProtocolCachePolicy
+    }
+    
+    public var allowsCellularAccess: Bool {
+        return true
     }
     
     public func decode(data: Data) -> Response? {
@@ -78,7 +98,7 @@ extension APIRequest {
         }
     }
     
-    public func makeURLRequest(needURLEncoding: Bool = false) -> URLRequest? {
+    public func makeURLRequest() -> URLRequest? {
         
         let endPoint = baseURL.absoluteString + path
         
@@ -91,20 +111,48 @@ extension APIRequest {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = method.rawValue
         urlRequest.allHTTPHeaderFields = httpHeaderFields
-        urlRequest.timeoutInterval = 30
-        
-        if !needURLEncoding {
-            return urlRequest
-        }
+        urlRequest.timeoutInterval = timeoutInterval
+        urlRequest.cachePolicy = cachePolicy
+        urlRequest.allowsCellularAccess = allowsCellularAccess
         
         // パラメータをエンコードする
-        do {
-            urlRequest = try Alamofire.URLEncoding.default.encode(urlRequest, with: parameters)
-            return urlRequest
-        } catch {
-            assertionFailure("エンコーディング処理でエラー発生\nURLRequest:\(urlRequest)")
-            return nil
+        switch encodingType {
+        case .jsonEncoding:
+            return urlRequest.jsonEncoding(parameters: parameters)
+        case .urlEncoding:
+            return urlRequest.urlEncoding(parameters: parameters)
         }
     }
 }
 
+// MARK: - Private func
+private extension URLRequest {
+    
+    /// URLEncodingする
+    ///
+    /// - Parameter parameters: リクエストパラメータ
+    /// - Returns: URLEncodingしたURLRequest
+    mutating func urlEncoding(parameters: [String: Any]) -> URLRequest? {
+        do {
+            self = try Alamofire.URLEncoding.default.encode(self, with: parameters)
+            return self
+        } catch {
+            assertionFailure("URLEncodingでエラー発生\nURLRequest:\(self)")
+            return nil
+        }
+    }
+    
+    /// JSONEncodingする
+    ///
+    /// - Parameter parameters: リクエストパラメータ
+    /// - Returns: JSONEncodingしたURLRequest
+    mutating func jsonEncoding(parameters: [String: Any]) -> URLRequest? {
+        do {
+            self = try Alamofire.JSONEncoding.default.encode(self, with: parameters)
+            return self
+        } catch {
+            assertionFailure("JSONEncodingでエラー発生\nURLRequest:\(self)")
+            return nil
+        }
+    }
+}

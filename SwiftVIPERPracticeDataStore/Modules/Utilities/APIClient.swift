@@ -23,7 +23,7 @@ public struct APIClient {
                 return
             }
             
-            guard let urlRequest = request.makeURLRequest(needURLEncoding: true) else {
+            guard let urlRequest = request.makeURLRequest() else {
                 resolver.reject(APIError.invalidRequest)
                 return
             }

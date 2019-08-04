@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6424EC6D22F697820031AB1C /* EncodingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6424EC6C22F697820031AB1C /* EncodingType.swift */; };
 		6447C5D222DA290D004C6DF1 /* LibraryAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6447C5D122DA290D004C6DF1 /* LibraryAPIRequest.swift */; };
 		6447C5D422DA293D004C6DF1 /* LibraryAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6447C5D322DA293D004C6DF1 /* LibraryAPIResponse.swift */; };
 		6447C5D622DA2F57004C6DF1 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6447C5D522DA2F57004C6DF1 /* Realm.framework */; };
@@ -97,6 +98,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6424EC6C22F697820031AB1C /* EncodingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingType.swift; sourceTree = "<group>"; };
 		6447C5D122DA290D004C6DF1 /* LibraryAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAPIRequest.swift; sourceTree = "<group>"; };
 		6447C5D322DA293D004C6DF1 /* LibraryAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAPIResponse.swift; sourceTree = "<group>"; };
 		6447C5D522DA2F57004C6DF1 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
@@ -452,6 +454,7 @@
 				64DB532F22D9FA2800D8AB0D /* APIClient.swift */,
 				64DB533922D9FB8900D8AB0D /* APIError.swift */,
 				64DB533B22D9FB9900D8AB0D /* APIRequest.swift */,
+				6424EC6C22F697820031AB1C /* EncodingType.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -724,6 +727,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6424EC6D22F697820031AB1C /* EncodingType.swift in Sources */,
 				64DB533022D9FA2800D8AB0D /* APIClient.swift in Sources */,
 				64DB533C22D9FB9900D8AB0D /* APIRequest.swift in Sources */,
 				6447C5D422DA293D004C6DF1 /* LibraryAPIResponse.swift in Sources */,
